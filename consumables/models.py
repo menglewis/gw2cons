@@ -6,6 +6,7 @@ class Item(models.Model):
     duration = models.IntegerField()
     buy_cost = models.IntegerField(blank=True, null=True)
     sell_cost = models.IntegerField(blank=True, null=True)
+    food = models.BooleanField(default=True)
 
     def convert_cost(cost):
         return '%sg %ss %sc' % (cost / 10000 , (cost % 10000) / 100, cost % 100)

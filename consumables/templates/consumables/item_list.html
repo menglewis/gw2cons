@@ -1,0 +1,14 @@
+{% extends "_layouts/base.html" %}
+
+{% block page_title %}Items | {% endblock %}
+
+{% block page_content %}
+<h1>Items</h1>
+<ul>
+    {% for item in item_list %}
+    <li><a href="{% url 'consumables:detail' item.pk %}">{{ item.name }}</a></li>
+    {% empty %}
+    <li>Sorry, no posts yet. Check back soon!</li>
+    {% endfor %}
+</ul>
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends "_layouts/base.html" %}
+
+{% block page_title %}{{ item.name }} | {% endblock %}
+
+{% block page_content %}
+<h2>{{ item.name }}</h2>
+{% for item_stat in item.item_stat_set.all %}
+    {{ item_stat.stat.name }}: {{ item_stat.magnitude }}<br/>
+{% endfor %}
+<p><a href="{% url 'consumables:list' %}">Item List</a></p>
+{% endblock %}
