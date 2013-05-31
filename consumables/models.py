@@ -1,5 +1,8 @@
 from django.db import models
 
+def convert_cost(cost):
+    return '%sg %ss %sc' % (cost / 10000 , (cost % 10000) / 100, cost % 100)
+
 # Create your models here.
 class Item(models.Model):
     name = models.CharField(max_length=255)
@@ -7,9 +10,6 @@ class Item(models.Model):
     buy_cost = models.IntegerField(blank=True, null=True)
     sell_cost = models.IntegerField(blank=True, null=True)
     food = models.BooleanField(default=True)
-
-    def convert_cost(cost):
-        return '%sg %ss %sc' % (cost / 10000 , (cost % 10000) / 100, cost % 100)
 
     def get_buy_cost(self):
         return convert_cost(self.buy_cost)

@@ -3,7 +3,9 @@
 {% block page_title %}{{ item.name }} | {% endblock %}
 
 {% block page_content %}
-<h2>{{ item.name }}</h2>
+<h2>{{ item.name }}</h2><br/>
+Buycost: {{ item.get_buy_cost }}<br/>
+Sellcost: {{ item.get_sell_cost }}<br/>
 {% for item_stat in item.item_stat_set.all %}
     {{ item_stat.stat.name }}: {{ item_stat.magnitude }}<br/>
 {% endfor %}

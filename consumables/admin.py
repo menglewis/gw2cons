@@ -12,7 +12,7 @@ class ItemAdmin(admin.ModelAdmin):
     fields = ['name', 'duration', 'buy_cost', 'sell_cost', 'food']
     list_display = ['name', 'duration', 'buy_cost', 'sell_cost', 'food']
     list_display_links = ['name']
-    #list_editable = ['published']
+    list_editable = ['buy_cost', 'sell_cost']
     #list_filter = ['published', 'updated']
     search_fields = ['name']
     inlines = [ItemStatsInline]
