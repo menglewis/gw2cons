@@ -22,10 +22,10 @@ class StatAdmin(admin.ModelAdmin):
     fields = ['name']
     list_display = ['name']
     search_fields = ['name']
-    inlines = [ItemsInline]
+    #inlines = [ItemsInline]
 
 class ItemStatAdmin(admin.ModelAdmin):
-    fields = ['item', 'stat', 'magnitude']
+    fields = ['item', 'stat', 'magnitude', 'order_number']
 
 admin.site.register(Item, ItemAdmin)
 admin.site.register(Stat, StatAdmin)

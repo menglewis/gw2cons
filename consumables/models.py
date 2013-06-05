@@ -31,6 +31,7 @@ class Item_Stat(models.Model):
     item = models.ForeignKey(Item)
     stat = models.ForeignKey(Stat)
     magnitude = models.IntegerField()
+    order_number = models.IntegerField()
 
     def __unicode__(self):
         return '%s: %s %s' % (self.item, self.magnitude, self.stat)

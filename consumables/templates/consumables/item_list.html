@@ -6,7 +6,9 @@
 <h1>Items</h1>
 <ul>
     {% for item in item_list %}
-    <li><a href="{% url 'consumables:detail' item.pk %}">{{ item.name }}</a></li>
+    <li><a href="{% url 'consumables:detail' item.pk %}">{{ item.name }}</a>{% for item_stat in item.item_stat_set.all %}
+    | {{ item_stat.stat.name }}: {{ item_stat.magnitude }}
+{% endfor %} | Buycost: {{ item.get_buy_cost }} | Sellcost: {{ item.get_sell_cost }}</li>
     {% empty %}
     <li>Sorry, no posts yet. Check back soon!</li>
     {% endfor %}
