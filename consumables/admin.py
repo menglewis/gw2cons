@@ -10,8 +10,8 @@ class ItemsInline(admin.TabularInline):
     model = Item
 
 class ItemAdmin(admin.ModelAdmin):
-    fields = ['name', 'slug', 'duration', 'buy_cost', 'sell_cost', 'food']
-    list_display = ['name', 'duration', 'buy_cost', 'sell_cost', 'food']
+    fields = ['name', 'slug', 'duration', 'buy_cost', 'sell_cost', 'consumable_type', 'description']
+    list_display = ['name', 'duration', 'buy_cost', 'sell_cost', 'consumable_type']
     list_display_links = ['name']
     list_editable = ['buy_cost', 'sell_cost']
     search_fields = ['name']

@@ -2,7 +2,9 @@ from django.db import models
 from django.template.defaultfilters import slugify
 
 def convert_cost(cost):
-    if (cost > 9999):
+    if (cost is None):
+        return '0'
+    elif (cost > 9999):
         return '%sg %ss %sc' % (cost / 10000 , (cost % 10000) / 100, cost % 100)
     elif (cost > 99):
         return '%ss %sc' % (cost / 100, cost % 100)
@@ -10,12 +12,20 @@ def convert_cost(cost):
         return '%sc' % cost
 
 class Item(models.Model):
+
+    CONSUMABLE_TYPES = (
+        ('FOOD', 'Food'),
+        ('UTIL', 'Utility'),
+    )
+
     name = models.CharField(max_length=255)
     duration = models.IntegerField()
     buy_cost = models.IntegerField(blank=True, null=True)
     sell_cost = models.IntegerField(blank=True, null=True)
-    food = models.BooleanField(default=True)
+    consumable_type = models.CharField(max_length=4, choices = CONSUMABLE_TYPES, default="FOOD")
     slug = models.SlugField(max_length=255, blank=True, default='')
+
+    description = models.TextField()
 
     def get_buy_cost(self):
         return convert_cost(self.buy_cost)
