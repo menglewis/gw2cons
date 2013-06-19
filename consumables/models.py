@@ -1,4 +1,5 @@
 from django.db import models
+from django.template.defaultfilters import slugify
 
 def convert_cost(cost):
     if (cost > 9999):
@@ -8,13 +9,13 @@ def convert_cost(cost):
     else:
         return '%sc' % cost
 
-# Create your models here.
 class Item(models.Model):
     name = models.CharField(max_length=255)
     duration = models.IntegerField()
     buy_cost = models.IntegerField(blank=True, null=True)
     sell_cost = models.IntegerField(blank=True, null=True)
     food = models.BooleanField(default=True)
+    slug = models.SlugField(max_length=255, blank=True, default='')
 
     def get_buy_cost(self):
         return convert_cost(self.buy_cost)
@@ -24,6 +25,15 @@ class Item(models.Model):
 
     def __unicode__(self):
         return self.name
+
+    def __save__(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.title)
+        super(Post, self).save(*args, **kwargs)
+
+    @models.permalink
+    def get_absolute_url(self):
+        return ("consumables:detail", (), {"slug": self.slug})
 
 class Stat(models.Model):
     name = models.CharField(max_length=255)

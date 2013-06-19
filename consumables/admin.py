@@ -10,12 +10,12 @@ class ItemsInline(admin.TabularInline):
     model = Item
 
 class ItemAdmin(admin.ModelAdmin):
-    fields = ['name', 'duration', 'buy_cost', 'sell_cost', 'food']
+    fields = ['name', 'slug', 'duration', 'buy_cost', 'sell_cost', 'food']
     list_display = ['name', 'duration', 'buy_cost', 'sell_cost', 'food']
     list_display_links = ['name']
     list_editable = ['buy_cost', 'sell_cost']
-    #list_filter = ['published', 'updated']
     search_fields = ['name']
+    prepopulated_fields = {'slug': ('name',)}
     inlines = [ItemStatsInline]
 
 
@@ -23,7 +23,6 @@ class StatAdmin(admin.ModelAdmin):
     fields = ['name']
     list_display = ['name']
     search_fields = ['name']
-    #inlines = [ItemsInline]
 
 class ItemStatAdmin(admin.ModelAdmin):
     fields = ['item', 'stat', 'magnitude', 'order_number']
