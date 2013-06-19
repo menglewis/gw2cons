@@ -4,3 +4,4 @@ venv/
 *.swp
 .DS_Store
 migrations/
+gw2cons-venv/
