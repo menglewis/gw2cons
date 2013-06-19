@@ -4,6 +4,7 @@ from .models import Item, Stat, Item_Stat
 class ItemStatsInline(admin.TabularInline):
     model = Item_Stat
     extra = 2
+    ordering = ['order_number']
 
 class ItemsInline(admin.TabularInline):
     model = Item
