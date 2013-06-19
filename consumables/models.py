@@ -1,7 +1,12 @@
 from django.db import models
 
 def convert_cost(cost):
-    return '%sg %ss %sc' % (cost / 10000 , (cost % 10000) / 100, cost % 100)
+    if (cost > 9999):
+        return '%sg %ss %sc' % (cost / 10000 , (cost % 10000) / 100, cost % 100)
+    elif (cost > 99):
+        return '%ss %sc' % (cost / 100, cost % 100)
+    else:
+        return '%sc' % cost
 
 # Create your models here.
 class Item(models.Model):
