@@ -16,7 +16,7 @@ class FoodListView(ItemListView):
         queryset = super(FoodListView, self).get_queryset()
         return queryset.filter(food=True)
 
-class OtherListView(ItemListView):
+class UtilityListView(ItemListView):
     def get_queryset(self):
-        queryset = super(OtherListView, self).get_queryset()
+        queryset = super(UtilityListView, self).get_queryset()
         return queryset.exclude(food=True)
