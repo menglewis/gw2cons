@@ -1,9 +1,10 @@
-import json
-import urllib2
+import json, urllib2
 
 from django.template.defaultfilters import slugify
 
-from .models import Item
+from ..models import Item
+
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "gw2cons.settings")
 
 CONSUMABLES_API = "http://www.gw2spidy.com/api/v0.9/json/all-items/3"
 
@@ -11,29 +12,26 @@ ITEM_DETAIL = "https://api.guildwars2.com/v1/item_details.json?item_id="
 
 undead = "http://www.gw2spidy.com/api/v0.9/json/item/8878"
 
-items = json.loads(urllib2.urlopen(CONSUMABLES_API).read())['results']
+"""
+    items = json.loads(urllib2.urlopen(CONSUMABLES_API).read())['results']
 
-for item in items:
-    if (item['sub_type_id'] == 2):
+    for item in items:
         id = item['data_id']
-        official_dump = json.loads(urllib2.urlopen(ITEM_DETAIL + str(apple_pie)).read())
-    i = Item(pk=id, name = official_dump['name'], slug = slugify(official_dump['name']), duration = official_dump['consumable']['duration_ms'], consumable_type = 'FOOD', description = official_dump['consumable']['description'])
+        official_dump = json.loads(urllib2.urlopen(ITEM_DETAIL + str(id)).read())
+        if official_dump['type'] == 'Consumable':
+            i = Item(pk=id, name = official_dump['name'], slug = slugify(official_dump['name']), consumable_type = 'UTIL', duration = official_dump['consumable']['duration_ms'], description = official_dump['consumable']['description'], buy_cost = item['max_offer_unit_price'], sell_cost = item['min_sale_unit_price'])
+            if official_dump['consumable']['type'] == 'food':
+                i.consumable_type = 'FOOD'
+            i.save()
+"""
 
-# need type 3 subtype 2
+# Test case
+item = json.loads(urllib2.urlopen(undead).read())['result']
+id = item['data_id']
+official_dump = json.loads(urllib2.urlopen(ITEM_DETAIL + str(id)).read())
+if official_dump['type'] == 'Consumable':
+    i = Item(pk=id, name = official_dump['name'], slug = slugify(official_dump['name']), consumable_type = 'UTIL', duration = official_dump['consumable']['duration_ms'], description = official_dump['consumable']['description'], )
+    if official_dump['consumable']['type'] == 'food':
+        i.consumable_type = 'FOOD'
+    i.save()
 
-item = json.loads(urllib2.urlopen(ITEM_DETAIL + str(apple_pie)).read())
-
-# name
-item['name']
-
-# level
-item['level']
-
-# Item type
-item['consumable']['type']
-
-# Duration
-item['consumable']['duration_ms']
-
-# stats
-item['consumable']['description']

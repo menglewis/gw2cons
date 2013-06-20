@@ -55,7 +55,7 @@ class Stat(models.Model):
 class Item_Stat(models.Model):
     item = models.ForeignKey(Item)
     stat = models.ForeignKey(Stat)
-    magnitude = models.IntegerField()
+    magnitude = models.CharField(max_length=64, default='0')
     order_number = models.IntegerField()
 
     def __unicode__(self):
