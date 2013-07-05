@@ -14,9 +14,9 @@ class ItemDetailView(DetailView):
 class FoodListView(ItemListView):
     def get_queryset(self):
         queryset = super(FoodListView, self).get_queryset()
-        return queryset.filter(food=True)
+        return queryset.filter(consumables_type='FOOD')
 
 class UtilityListView(ItemListView):
     def get_queryset(self):
         queryset = super(UtilityListView, self).get_queryset()
-        return queryset.exclude(food=True)
+        return queryset.filter(consumables_type='UTIL')

@@ -24,8 +24,8 @@ class Item(models.Model):
     sell_cost = models.IntegerField(blank=True, null=True)
     consumable_type = models.CharField(max_length=4, choices = CONSUMABLE_TYPES, default="FOOD")
     slug = models.SlugField(max_length=255, blank=True, default='')
-
     description = models.TextField()
+    last_updated = models.DateTimeField(auto_now=True)
 
     def get_buy_cost(self):
         return convert_cost(self.buy_cost)

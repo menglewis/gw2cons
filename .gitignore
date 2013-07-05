@@ -1,6 +1,6 @@
 *.pyc
 *.db
-venv/
+venv*
 *.swp
 .DS_Store
 migrations/
