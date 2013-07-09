@@ -22,7 +22,7 @@ class Item(models.Model):
     duration = models.IntegerField()
     buy_cost = models.IntegerField(blank=True, null=True)
     sell_cost = models.IntegerField(blank=True, null=True)
-    consumable_type = models.CharField(max_length=4, choices = CONSUMABLE_TYPES, default="FOOD")
+    consumable_type = models.CharField(max_length=32)
     slug = models.SlugField(max_length=255, blank=True, default='')
     description = models.TextField()
     last_updated = models.DateTimeField(auto_now=True)

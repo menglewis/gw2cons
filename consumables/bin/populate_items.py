@@ -22,9 +22,7 @@ def main():
             id = item['data_id']
             official_dump = json.loads(urllib2.urlopen(DETAIL_API + str(id)).read())
             if official_dump['type'] == 'Consumable':
-                i = Item(pk=id, name = official_dump['name'], slug = slugify(official_dump['name']), consumable_type = 'UTIL', duration = official_dump['consumable']['duration_ms'], description = official_dump['consumable']['description'], buy_cost = item['max_offer_unit_price'], sell_cost = item['min_sale_unit_price'])
-                if official_dump['consumable']['type'] == 'Food':
-                    i.consumable_type = 'FOOD'
+                i = Item(pk=id, name = official_dump['name'], slug = slugify(official_dump['name']), consumable_type = official_dump['consumable']['type'], duration = official_dump['consumable']['duration_ms'], description = official_dump['consumable']['description'], buy_cost = item['max_offer_unit_price'], sell_cost = item['min_sale_unit_price'])
                 i.save()
         except:
             pass
