@@ -20,6 +20,6 @@ class Command(BaseCommand):
                 if official_dump['type'] == 'Consumable':
                     i = Item(pk=id, name = official_dump['name'], slug = slugify(official_dump['name']), consumable_type = official_dump['consumable']['type'], duration = official_dump['consumable']['duration_ms'], description = official_dump['consumable']['description'], buy_cost = item['max_offer_unit_price'], sell_cost = item['min_sale_unit_price'])
                     i.save()
-                    self.stdout.write("Saved item %s" % id)
+                    self.stdout.write("Created item %s" % id)
             except:
                 pass
