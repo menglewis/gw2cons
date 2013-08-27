@@ -1,9 +1,11 @@
 from django.conf.urls import patterns, include, url
+from rest_framework.urlpatterns import format_suffix_patterns
 
 from . import views
 
 urlpatterns = patterns('',
-
+    url(r'^api/(?P<pk>\d+)', views.ItemDetail.as_view(), name='api_list'),
+    url(r'^api', views.ItemList.as_view(), name='api_detail'),
 
     url(r'^food', views.FoodListView.as_view(), name='food_list'),
     url(r'^utility', views.UtilityListView.as_view(), name='utility_list'),
@@ -11,4 +13,7 @@ urlpatterns = patterns('',
     url(r'^(?P<pk>\d+)', views.ItemDetailView.as_view(), name='detail' ),
     url(r'^(?P<slug>[\w-]+)', views.ItemDetailView.as_view(), name='detail' ),
 
+
 )
+
+urlpatterns = format_suffix_patterns(urlpatterns)
