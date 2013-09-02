@@ -57,11 +57,11 @@
     }
     .sorting_asc:after {
         font-family: FontAwesome;
-        content: " \f0de";
+        content: "\f0de";
     }
     .sorting_desc:after {
         font-family: FontAwesome;
-        content: " \f0dd";
+        content: "\f0dd";
     }
     thead:hover {
         cursor: pointer;
@@ -72,10 +72,6 @@
 
 {% block page_content %}
 
-
-
-<div class="container">
-    <h2>Items</h2>
     <table id="item-table" class="table table-bordered table-hover">
         <thead><tr>
             <th>Name</th>
@@ -99,5 +95,4 @@
         {% endfor %}
         </tbody>
     </table>
-</div>
 {% endblock %}
