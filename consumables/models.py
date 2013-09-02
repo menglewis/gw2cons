@@ -20,12 +20,16 @@ class Item(models.Model):
 
     name = models.CharField(max_length=255)
     duration = models.IntegerField()
+    required_level = models.IntegerField()
     buy_cost = models.IntegerField(blank=True, null=True)
     sell_cost = models.IntegerField(blank=True, null=True)
     consumable_type = models.CharField(max_length=32)
     slug = models.SlugField(max_length=255, blank=True, default='')
     description = models.TextField()
     last_updated = models.DateTimeField(auto_now=True)
+
+    def get_duration_minutes(self):
+        return "%s m" % (int(self.duration) / 60000)
 
     def get_buy_cost(self):
         return convert_cost(self.buy_cost)
