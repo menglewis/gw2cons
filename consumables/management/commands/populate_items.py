@@ -14,11 +14,10 @@ class Command(BaseCommand):
         items = json.loads(requests.get(CONSUMABLES_API).text)['results']
         for item in items:
             try:
-                time.sleep(2) # so we don't hit the API too often
                 id = item['data_id']
                 official_dump = json.loads(requests.get(DETAIL_API + str(id)).text)
                 if official_dump['type'] == 'Consumable':
-                    i = Item(pk=id, name = official_dump['name'], slug = slugify(official_dump['name']), consumable_type = official_dump['consumable']['type'], duration = official_dump['consumable']['duration_ms'], description = official_dump['consumable']['description'], buy_cost = item['max_offer_unit_price'], sell_cost = item['min_sale_unit_price'])
+                    i = Item(pk=id, name = official_dump['name'], slug = slugify(official_dump['name']), consumable_type = official_dump['consumable']['type'], required_level = official_dump['level'], duration = official_dump['consumable']['duration_ms'], description = official_dump['consumable']['description'], buy_cost = item['max_offer_unit_price'], sell_cost = item['min_sale_unit_price'])
                     i.save()
                     self.stdout.write("Created item %s" % id)
             except:
