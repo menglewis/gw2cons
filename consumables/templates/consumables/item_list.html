@@ -11,10 +11,10 @@
         $.extend($.fn.dataTable.defaults, {
            "bInfo": false
         });
-       $("#item-table").dataTable( {
+        $("#item-table").dataTable( {
            "sPaginationType": "full_numbers",
            "aLengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
-       });
+        });
     });
 </script>
 <style>
@@ -63,7 +63,9 @@
         font-family: FontAwesome;
         content: " \f0dd";
     }
-
+    thead:hover {
+        cursor: pointer;
+    }
 
 </style>
 {% endblock %}
@@ -77,8 +79,10 @@
     <table id="item-table" class="table table-bordered table-hover">
         <thead><tr>
             <th>Name</th>
-            <th>Buy Cost</th>
-            <th>Sell Cost</th>
+            <th>Level</th>
+            <th>Duration</th>
+            <th>Buy</th>
+            <th>Sell</th>
             <th>Description</th>
         </tr>
         </thead>
@@ -86,9 +90,11 @@
         {% for item in item_list %}
         <tr>
             <td><a href="{{ item.get_absolute_url }}">{{ item.name }}</a></td>
-            <td>{{ item.buy_cost }}</td>
+            <td>{{ item.required_level }}</td>
+            <td>{{ item.get_duration_minutes }}</td>
+            <td><div class="gw2-currency">{{ item.buy_cost }}</div></td>
             <td>{{ item.sell_cost }}</td>
-            <td>{{ item.description }}</td>
+            <td>{{ item.description | linebreaks }}</td>
         </tr>
         {% endfor %}
         </tbody>
